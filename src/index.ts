@@ -32,7 +32,8 @@ export abstract class View {
 
   constructor (options?: Options) {
     this.state = options?.state
-    this.container = options?.container || document.body
+    this.container = options?.container ||
+      document.body.appendChild(document.createElement('div'))
     for (const method of options?.hooks || []) {
       hook(this.state, method, () => this.update())
     }
@@ -41,4 +42,8 @@ export abstract class View {
 
   abstract initialize (container: HTMLElement): void;
   abstract update (): void;
+
+  $ (selector: string): HTMLElement | null {
+    return this.container.querySelector(selector)
+  }
 }

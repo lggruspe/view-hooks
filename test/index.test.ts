@@ -85,8 +85,8 @@ describe('View', () => {
           update () {}
         }
         const view = new EmptyView()
-        assert.strictEqual(view.container, document.body)
         assert.strictEqual(view.state, undefined)
+        assert.strictEqual(view.container, document.body.lastChild)
       })
     })
   })
@@ -98,18 +98,6 @@ describe('View', () => {
         super({ state, container, hooks })
       }
 
-      get value () {
-        return this.container.querySelector('.value')!
-      }
-
-      get increaseButton () {
-        return this.container.querySelector('.increase')!
-      }
-
-      get decreaseButton () {
-        return this.container.querySelector('.decrease')!
-      }
-
       initialize (container: HTMLElement) {
         container.innerHTML = `
           <div class="test">
@@ -118,12 +106,12 @@ describe('View', () => {
             <button type="button" class="decrease">Decrease</button>
           </div>
         `
-        this.increaseButton.addEventListener('click', () => this.state.increase())
-        this.decreaseButton.addEventListener('click', () => this.state.decrease())
+        this.$('.increase')!.addEventListener('click', () => this.state.increase())
+        this.$('.decrease')!.addEventListener('click', () => this.state.decrease())
       }
 
       update () {
-        this.value.textContent = this.state.value
+        this.$('.value')!.textContent = this.state.value
       }
     }
 
