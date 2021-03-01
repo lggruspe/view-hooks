@@ -1,5 +1,5 @@
 {
-  "name": "view-hooks",
+  "name": "@lggruspe/view-hooks",
   "version": "1.0.0",
   "description": "Hooks for keeping data consistent with the DOM",
   "main": "dist/index.js",
