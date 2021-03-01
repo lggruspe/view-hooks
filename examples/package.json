@@ -1,0 +1,19 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && browserify build/app.js -o public/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "view-hooks": "file:.."
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "typescript": "^4.2.2"
+  }
+}
