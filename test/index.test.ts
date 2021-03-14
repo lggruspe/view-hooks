@@ -116,10 +116,6 @@ describe('View', () => {
     describe('without arguments', () => {
       it('should use reasonable default options', () => {
         class EmptyView extends View {
-          initialize (container: HTMLElement) {
-            assert.ok(container)
-          }
-
           update () {}
         }
         const view = new EmptyView()
@@ -136,7 +132,8 @@ describe('View', () => {
         super({ state, container, hooks })
       }
 
-      initialize (container: HTMLElement) {
+      initialize () {
+        const container = this.container
         container.innerHTML = `
           <div class="test">
             <span class="value">${this.state.value}</span>
@@ -159,6 +156,7 @@ describe('View', () => {
         const container = document.querySelector('.app')
         const view = new TestView(state, container as HTMLElement)
         assert.ok(view)
+        view.initialize()
 
         const button = document.querySelector('.increase') as HTMLElement
         const value = document.querySelector('.value')!
@@ -179,6 +177,7 @@ describe('View', () => {
         const container = document.querySelector('.app')
         const view = new TestView(state, container as HTMLElement)
         assert.ok(view)
+        view.initialize()
 
         const button = document.querySelector('.decrease') as HTMLElement
         const value = document.querySelector('.value')!

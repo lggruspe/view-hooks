@@ -30,7 +30,8 @@ class VoteView extends View {
     return this.state.active === button ? 'active' : ''
   }
 
-  initialize (container: HTMLElement) {
+  run () {
+    const container = this.container
     container.innerHTML = `
       <span class="votes">${this.state.votes}</span>
       <button type="button" class="upvote ${this.isActive(1)}">Upvote</button>
@@ -49,5 +50,4 @@ class VoteView extends View {
 
 const vote = new Vote(9000)
 const container = document.querySelector('.app') as HTMLElement
-const view = new VoteView(vote, container)
-console.log('view', view)
+new VoteView(vote, container).run()

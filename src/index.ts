@@ -73,10 +73,8 @@ export abstract class View {
     for (const method of options?.hooks || []) {
       hook(this.state, method, () => this.update())
     }
-    this.initialize(this.container)
   }
 
-  abstract initialize (container: HTMLElement): void;
   abstract update (): void;
 
   $ (selector: string): HTMLElement | null {
