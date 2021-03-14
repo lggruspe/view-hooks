@@ -13,6 +13,44 @@ describe('hook', () => {
     })
   })
 
+  describe('to setter', () => {
+    class HasSetter {
+      _val: number
+      constructor (val: number) {
+        this._val = val
+      }
+
+      get val (): number {
+        return this._val
+      }
+
+      set val (value: number) {
+        this._val = value
+      }
+    }
+
+    it('should invoke callback whenever setter gets invoked', () => {
+      const data: string[] = []
+      const obj = new HasSetter(0)
+      obj.val = 1
+      hook(obj, 'val', () => data.push('foo'))
+      assert.deepStrictEqual(data, [])
+
+      obj.val = 2
+      assert.strictEqual(obj.val, 2)
+      assert.deepStrictEqual(data, ['foo'])
+    })
+
+    it('getter should still work', () => {
+      const obj = new HasSetter(0)
+      hook(obj, 'val', () => {})
+      obj.val = 3
+      assert.strictEqual(obj.val, 3)
+      obj.val = 4
+      assert.strictEqual(obj.val, 4)
+    })
+  })
+
   describe('if object contains property but is not a method', () => {
     it('should not do anything', () => {
       const obj = { foo: 'foo' }

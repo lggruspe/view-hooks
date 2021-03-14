@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "view-hooks": "file:.."
+    "@lggruspe/view-hooks": "file:.."
   },
   "devDependencies": {
     "browserify": "^17.0.0",

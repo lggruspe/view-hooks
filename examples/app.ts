@@ -1,4 +1,4 @@
-import { View } from 'view-hooks'
+import { View } from '@lggruspe/view-hooks'
 
 class Vote {
   base: number
