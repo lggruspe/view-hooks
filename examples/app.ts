@@ -1,4 +1,4 @@
-import { View } from '@lggruspe/view-hooks'
+import * as ui from '@lggruspe/ui'
 
 class Vote {
   base: number
@@ -17,37 +17,37 @@ class Vote {
   }
 }
 
-class VoteView extends View {
-  constructor (vote: Vote, container: HTMLElement) {
-    super({
-      container,
-      state: vote,
-      hooks: ['press']
-    })
+class App implements ui.Component {
+  ui: ui.Ui
+  vote: Vote
+  constructor (vote: Vote) {
+    this.vote = vote
+    this.ui = new ui.Ui(($: ui.T$) => this.update($))
+    this.ui.watch(this.vote, 'press')
   }
 
   isActive (button: number) {
-    return this.state.active === button ? 'active' : ''
+    return this.vote.active === button ? 'active' : ''
   }
 
-  run () {
-    const container = this.container
-    container.innerHTML = `
-      <span class="votes">${this.state.votes}</span>
-      <button type="button" class="upvote ${this.isActive(1)}">Upvote</button>
-      <button type="button" class="downvote ${this.isActive(-1)}">Downvote</button>
-    `
-    this.$('.upvote')!.onclick = () => this.state.press(1)
-    this.$('.downvote')!.onclick = () => this.state.press(-1)
+  render () {
+    const $ = ui.to$(`
+      <div class="app">
+        <span class="count">${this.vote.votes}</span>
+        <button class="upvote ${this.isActive(1)}">Upvote</button>
+        <button class="downvote ${this.isActive(-1)}">Downvote</button>
+      </div>
+    `)
+    $('.upvote').onclick = () => this.vote.press(1)
+    $('.downvote').onclick = () => this.vote.press(-1)
+    return $()
   }
 
-  update () {
-    this.$('.votes')!.textContent = this.state.votes
-    this.$('.upvote')!.className = `upvote ${this.isActive(1)}`
-    this.$('.downvote')!.className = `downvote ${this.isActive(-1)}`
+  update ($: ui.T$) {
+    $('.count').textContent = this.vote.votes
+    $('.upvote').className = `upvote ${this.isActive(1)}`
+    $('.downvote').className = `downvote ${this.isActive(-1)}`
   }
 }
 
-const vote = new Vote(9000)
-const container = document.querySelector('.app') as HTMLElement
-new VoteView(vote, container).run()
+ui.render(new App(new Vote(9000)), document.querySelector('.root')!)

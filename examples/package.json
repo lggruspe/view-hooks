@@ -9,11 +9,11 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@lggruspe/view-hooks": "file:.."
-  },
   "devDependencies": {
     "browserify": "^17.0.0",
     "typescript": "^4.2.2"
+  },
+  "dependencies": {
+    "@lggruspe/ui": "file:.."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "@lggruspe/view-hooks",
-  "version": "1.1.0",
-  "description": "Hooks for keeping data consistent with the DOM",
+  "name": "@lggruspe/ui",
+  "version": "1.2.0",
+  "description": "Simple library for writing web UIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,22 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lggruspe/view-hooks.git"
+    "url": "git+https://github.com/lggruspe/ui.git"
   },
   "keywords": [
-    "consistent",
     "state",
     "dom",
-    "hooks",
+    "elements",
+    "ui",
     "views",
     "typescript"
   ],
   "author": "lggruspe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lggruspe/view-hooks/issues"
+    "url": "https://github.com/lggruspe/ui/issues"
   },
-  "homepage": "https://github.com/lggruspe/view-hooks#readme",
+  "homepage": "https://github.com/lggruspe/ui#readme",
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/jsdom": "^16.2.10",
