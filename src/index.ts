@@ -95,6 +95,10 @@ class Ui {
       self.updater(self.$)
     }
   }
+
+  watch (receiver: any, method: string) {
+    hook(receiver, method, () => this.updater(this.$))
+  }
 }
 
 interface Component {

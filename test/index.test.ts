@@ -233,4 +233,43 @@ describe('Ui usage example', () => {
       assert.strictEqual(document.body.textContent, 'boom!')
     })
   })
+
+  describe('Countdown (version 3)', () => {
+    class Countdown {
+      ui: Ui
+      count: number
+      constructor () {
+        this.count = 10
+        this.ui = new Ui($ => this.update($))
+        this.ui.watch(this, 'countdown')
+      }
+
+      countdown () {
+        this.count = this.count > 0 ? this.count - 1 : 0
+      }
+
+      update ($: T$) {
+        $().textContent = this.count > 0
+          ? this.count
+          : 'boom!'
+      }
+
+      render () {
+        const elem = toElem(`<button>${this.count}</button>`) as HTMLButtonElement
+        elem.onclick = () => this.countdown()
+        return elem
+      }
+    }
+
+    it('should count down to 0 and BOOM!', () => {
+      const elem = render(new Countdown(), document.body) as HTMLButtonElement
+      for (let i = 10; i > 0; i--) {
+        assert.strictEqual(document.body.textContent, String(i))
+        elem.click()
+      }
+      assert.strictEqual(document.body.textContent, 'boom!')
+      elem.click()
+      assert.strictEqual(document.body.textContent, 'boom!')
+    })
+  })
 })
