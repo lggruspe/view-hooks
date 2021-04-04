@@ -1,5 +1,4 @@
 import { hook, View } from '../src/index'
-import { JSDOM } from 'jsdom'
 import * as assert from 'assert'
 
 describe('hook', () => {
@@ -103,13 +102,7 @@ describe('View', () => {
   }
 
   beforeEach(() => {
-    const dom = new JSDOM('<div class="app"></div>')
-    const writable = true
-    Object.defineProperties(global, {
-      dom: { value: dom, writable },
-      window: { value: dom.window, writable },
-      document: { value: dom.window.document, writable }
-    })
+    document.body.innerHTML = '<div class="app"></div>'
   })
 
   describe('constructor', () => {
