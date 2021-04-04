@@ -1,5 +1,9 @@
-import { hook } from '../src/index'
+import { T$, Ui, elemTo$, to$, toElem, hook, render } from '../src/index'
 import * as assert from 'assert'
+
+afterEach(function () {
+  document.body.innerHTML = ''
+})
 
 describe('hook', () => {
   describe('if object does not contain method', () => {
@@ -81,6 +85,152 @@ describe('hook', () => {
       assert.strictEqual(obj.foo(), 'foo')
       hook(obj, 'foo', () => 'bar')
       assert.strictEqual(obj.foo(), 'foo')
+    })
+  })
+})
+
+describe('toElem', () => {
+  describe('with incorrect number of top-level elements', () => {
+    it('should throw error', () => {
+      assert.throws(() => toElem(''))
+      assert.throws(() => toElem('<input><input>'))
+    })
+  })
+
+  describe('with single top-level element', () => {
+    const elem = toElem(
+      '<div class="test">' +
+        '<span class="foo">Foo</span>' +
+        '<span class="bar">Bar</span>' +
+        '<span class="baz">Baz</span>' +
+      '</div>'
+    )
+    assert.ok(elem)
+    assert.strictEqual(elem.tagName, 'DIV')
+    assert.strictEqual(elem.textContent, 'FooBarBaz')
+    assert.strictEqual(elem.childElementCount, 3)
+    assert.ok(elem.querySelector('.foo'))
+    assert.ok(elem.querySelector('.bar'))
+    assert.ok(elem.querySelector('.baz'))
+  })
+})
+
+describe('to$ result', () => {
+  const $ = to$(
+    '<div class="test">' +
+      '<span class="foo">Foo</span>' +
+      '<span class="bar">Bar</span>' +
+      '<span class="baz">Baz</span>' +
+    '</div>'
+  )
+
+  describe('with no input selector', () => {
+    it('should return root element', () => {
+      assert.strictEqual($().tagName, 'DIV')
+      assert.strictEqual($().className, 'test')
+    })
+  })
+
+  describe('with input selector', () => {
+    it('should query selector', () => {
+      assert.strictEqual($('.foo').textContent, 'Foo')
+      assert.strictEqual($('.bar').textContent, 'Bar')
+      assert.strictEqual($('.baz').textContent, 'Baz')
+    })
+  })
+})
+
+describe('render', () => {
+  describe('with element input', () => {
+    const elem = toElem('<input>')
+
+    it('should return input element', () => {
+      assert.strictEqual(elem, render(elem, document.body))
+    })
+
+    it('should insert element into DOM', () => {
+      render(elem, document.body)
+      assert.strictEqual(document.body.firstChild, elem)
+    })
+  })
+})
+
+describe('Ui usage example', () => {
+  describe('Countdown (version 1)', () => {
+    class Countdown {
+      count: number
+      constructor () {
+        this.count = 10
+      }
+
+      countdown () {
+        this.count = this.count > 0 ? this.count - 1 : 0
+      }
+
+      update ($: T$) {
+        $().textContent = this.count > 0
+          ? this.count
+          : 'boom!'
+      }
+
+      render () {
+        const elem = toElem(`<button>${this.count}</button>`) as HTMLButtonElement
+        elem.onclick = () => {
+          this.countdown()
+          this.update(elemTo$(elem))
+        }
+        return elem
+      }
+    }
+
+    it('should count down to 0 and BOOM!', () => {
+      const elem = new Countdown().render()
+      document.body.appendChild(elem)
+      for (let i = 10; i > 0; i--) {
+        assert.strictEqual(document.body.textContent, String(i))
+        elem.click()
+      }
+      assert.strictEqual(document.body.textContent, 'boom!')
+      elem.click()
+      assert.strictEqual(document.body.textContent, 'boom!')
+    })
+  })
+
+  describe('Countdown (version 2)', () => {
+    class Countdown {
+      ui: Ui
+      count: number
+      constructor () {
+        this.ui = new Ui($ => this.update($))
+        this.count = 10
+      }
+
+      countdown () {
+        this.count = this.count > 0 ? this.count - 1 : 0
+      }
+
+      update ($: T$) {
+        $().textContent = this.count > 0
+          ? this.count
+          : 'boom!'
+      }
+
+      render () {
+        const elem = toElem(`<button>${this.count}</button>`) as HTMLButtonElement
+        elem.onclick = this.ui.update(() => this.countdown())
+        return elem
+      }
+    }
+
+    it('should count down to 0 and BOOM!', () => {
+      const elem = render(new Countdown(), document.body) as HTMLButtonElement
+      for (let i = 10; i > 0; i--) {
+        assert.strictEqual(document.body.textContent, String(i))
+        elem.click()
+      }
+      assert.strictEqual(document.body.textContent, 'boom!')
+      elem.click()
+      assert.strictEqual(document.body.textContent, 'boom!')
     })
   })
 })
