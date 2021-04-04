@@ -55,29 +55,3 @@ export function hook (obj: any, method: string, callback: Hook) {
     }
   }
 }
-
-interface Options {
-  container: HTMLElement
-  state: any
-  hooks: string[]
-}
-
-export abstract class View {
-  state: any
-  container: HTMLElement
-
-  constructor (options?: Options) {
-    this.state = options?.state
-    this.container = options?.container ||
-      document.body.appendChild(document.createElement('div'))
-    for (const method of options?.hooks || []) {
-      hook(this.state, method, () => this.update())
-    }
-  }
-
-  abstract update (): void;
-
-  $ (selector: string): HTMLElement | null {
-    return this.container.querySelector(selector)
-  }
-}

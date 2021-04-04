@@ -1,4 +1,4 @@
-import { hook, View } from '../src/index'
+import { hook } from '../src/index'
 import * as assert from 'assert'
 
 describe('hook', () => {
@@ -81,108 +81,6 @@ describe('hook', () => {
       assert.strictEqual(obj.foo(), 'foo')
       hook(obj, 'foo', () => 'bar')
       assert.strictEqual(obj.foo(), 'foo')
-    })
-  })
-})
-
-describe('View', () => {
-  class TestState {
-    value: number
-    constructor (value: number = 0) {
-      this.value = value
-    }
-
-    increase () {
-      this.value++
-    }
-
-    decrease () {
-      this.value--
-    }
-  }
-
-  beforeEach(() => {
-    document.body.innerHTML = '<div class="app"></div>'
-  })
-
-  describe('constructor', () => {
-    describe('without arguments', () => {
-      it('should use reasonable default options', () => {
-        class EmptyView extends View {
-          update () {}
-        }
-        const view = new EmptyView()
-        assert.strictEqual(view.state, undefined)
-        assert.strictEqual(view.container, document.body.lastChild)
-      })
-    })
-  })
-
-  describe('TestView', () => {
-    class TestView extends View {
-      constructor (state: TestState, container: HTMLElement) {
-        const hooks = ['increase', 'decrease']
-        super({ state, container, hooks })
-      }
-
-      initialize () {
-        const container = this.container
-        container.innerHTML = `
-          <div class="test">
-            <span class="value">${this.state.value}</span>
-            <button type="button" class="increase">Increase</button>
-            <button type="button" class="decrease">Decrease</button>
-          </div>
-        `
-        this.$('.increase')!.addEventListener('click', () => this.state.increase())
-        this.$('.decrease')!.addEventListener('click', () => this.state.decrease())
-      }
-
-      update () {
-        this.$('.value')!.textContent = this.state.value
-      }
-    }
-
-    describe('click increase button', () => {
-      it('should increase counter value', () => {
-        const state = new TestState(-2)
-        const container = document.querySelector('.app')
-        const view = new TestView(state, container as HTMLElement)
-        assert.ok(view)
-        view.initialize()
-
-        const button = document.querySelector('.increase') as HTMLElement
-        const value = document.querySelector('.value')!
-        assert.ok(button)
-        assert.ok(value)
-
-        assert.strictEqual(value.textContent, '-2')
-        button.click()
-        assert.strictEqual(value.textContent, '-1')
-        button.click()
-        assert.strictEqual(value.textContent, '0')
-      })
-    })
-
-    describe('click decrease button', () => {
-      it('should decrease counter value', () => {
-        const state = new TestState(0)
-        const container = document.querySelector('.app')
-        const view = new TestView(state, container as HTMLElement)
-        assert.ok(view)
-        view.initialize()
-
-        const button = document.querySelector('.decrease') as HTMLElement
-        const value = document.querySelector('.value')!
-        assert.ok(button)
-        assert.ok(value)
-
-        assert.strictEqual(value.textContent, '0')
-        button.click()
-        assert.strictEqual(value.textContent, '-1')
-        button.click()
-        assert.strictEqual(value.textContent, '-2')
-      })
     })
   })
 })
