@@ -54,11 +54,21 @@ describe('hook', () => {
     })
   })
 
-  describe('if object contains property but is not a method', () => {
-    it('should not do anything', () => {
+  describe('if property is a plain variable', () => {
+    it('should override the variable by a property', () => {
+      let sum = 0
       const obj = { foo: 'foo' }
-      hook(obj, 'foo', () => assert.ok(false))
-      assert.strictEqual(obj.foo, 'foo')
+      assert.ok(Object.getOwnPropertyNames(obj).includes('foo'))
+      hook(obj, 'foo', () => { sum += 1 })
+      assert.ok(!Object.getOwnPropertyNames(obj).includes('foo'))
+
+      assert.strictEqual(sum, 0)
+      obj.foo = 'bar'
+      assert.strictEqual(obj.foo, 'bar')
+      assert.strictEqual(sum, 1)
+      obj.foo = 'baz'
+      assert.strictEqual(obj.foo, 'baz')
+      assert.strictEqual(sum, 2)
     })
   })
 
