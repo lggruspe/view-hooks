@@ -1,7 +1,7 @@
 {
-  "name": "@lggruspe/ui",
-  "version": "1.2.0",
-  "description": "Simple library for writing web UIs",
+  "name": "loulou",
+  "version": "1.2.1",
+  "description": "Easy to use library for creating web user interfaces",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lggruspe/ui.git"
+    "url": "git+https://github.com/lggruspe/loulou.git"
   },
   "keywords": [
     "state",
@@ -24,9 +24,9 @@
   "author": "lggruspe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lggruspe/ui/issues"
+    "url": "https://github.com/lggruspe/loulou/issues"
   },
-  "homepage": "https://github.com/lggruspe/ui#readme",
+  "homepage": "https://github.com/lggruspe/loulou#readme",
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/jsdom": "^16.2.10",

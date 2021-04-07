@@ -1,18 +1,21 @@
-ui
-==
+loulou
+======
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/lggruspe/ui/Node.js%20CI)
-[![codecov](https://codecov.io/gh/lggruspe/ui/branch/main/graph/badge.svg?token=TNUY9T3XRE)](https://codecov.io/gh/lggruspe/ui)
-![npm (scoped)](https://img.shields.io/npm/v/@lggruspe/ui)
-![GitHub](https://img.shields.io/github/license/lggruspe/ui)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/lggruspe/loulou/Node.js%20CI)
+[![codecov](https://codecov.io/gh/lggruspe/loulou/branch/main/graph/badge.svg?token=TNUY9T3XRE)](https://codecov.io/gh/lggruspe/loulou)
+![npm (scoped)](https://img.shields.io/npm/v/loulou)
+![GitHub](https://img.shields.io/github/license/lggruspe/loulou)
 
-Simple library for writing web UIs
+Loulou is an easy to use library for creating web user interfaces.
+
+- Define elements using HTML template strings
+- Bind state and UI using "hooks"
 
 Installation
 ------------
 
 ```bash
-npm install @lggruspe/ui
+npm install loulou
 ```
 
 Examples

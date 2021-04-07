@@ -1,4 +1,4 @@
-import * as ui from '@lggruspe/ui'
+import * as ui from 'loulou'
 
 class Vote {
   base: number
