@@ -1,0 +1,68 @@
+@import 'normalize.css';
+
+html {
+  font-family: sans-serif;
+  line-height: 1.75;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: darkcyan;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 800px) {
+  #TOC {
+    box-sizing: border-box;
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    height: 100vh;
+    width: calc(300px + 2em);
+    overflow-y: auto;
+  }
+
+  body {
+    box-sizing: border-box;
+    position: absolute;
+    left: calc(300px + 5em);
+    width: calc(100vw - 300px - 10em);
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 800px) {
+  #TOC {
+    display: none;
+  }
+
+  body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5em;
+  }
+}
+
+#TOC ul {
+  list-style-type: none;
+}
+
+#title-block-header {
+  display: none;
+}
+
+.footer {
+  display: flex;
+  column-gap: 1em;
+  justify-content: flex-end;
+  margin-top: 1.5em;
+}
+
+.footer-text {
+  color: #444444;
+  font-size: 0.9rem;
+}
