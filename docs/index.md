@@ -26,7 +26,7 @@ The easiest way to get started with loulou is to use a CDN.
     <head>
         <meta charset="utf-8">
         <title>Example</title>
-        <script src="https://cdn.jsdelivr.net/npm/loulou@1.2.2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/loulou@1.2.3"></script>
         <script type="module">
             function hello (name = 'world') {
                 return loulou.toElem(`<p>Hello, ${name}!</p>`)
@@ -43,8 +43,10 @@ The easiest way to get started with loulou is to use a CDN.
 CDN links
 ---------
 
-- <https://cdn.jsdelivr.net/npm/loulou@1.2.2>
-- <https://unpkg.com/loulou@1.2.2/dist/index.min.js>
+- <https://cdn.jsdelivr.net/npm/loulou@1.2.3>
+- <https://cdn.jsdelivr.net/npm/loulou@1.2.3/dist/index.esm.min.js>
+- <https://unpkg.com/loulou@1.2.3/dist/index.min.js>
+- <https://unpkg.com/loulou@1.2.3/dist/index.esm.min.js>
 
 How to create DOM elements
 --------------------------

@@ -1,6 +1,6 @@
 {
   "name": "loulou",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Easy to use library for creating web user interfaces",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,10 @@
     "lint": "eslint src/*.ts test/*.ts",
     "test": "jest --coverage",
     "dist": "rollup -f umd -n loulou -i src/index.ts -o dist/index.js -p @wessberg/rollup-plugin-ts",
-    "minify": "terser -cm --toplevel -o dist/index.min.js dist/index.js"
+    "minify": "terser -cm --toplevel -o dist/index.min.js dist/index.js",
+    "dist-es": "rollup -f es -n loulou -i src/index.ts -o dist/index.esm.js -p @wessberg/rollup-plugin-ts",
+    "minify-es": "terser -cm --toplevel -o dist/index.esm.min.js dist/index.esm.js",
+    "dist-all": "npm run dist && npm run minify && npm run dist-es && npm run minify-es"
   },
   "repository": {
     "type": "git",
@@ -27,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/lggruspe/loulou/issues"
   },
-  "homepage": "https://github.com/lggruspe/loulou#readme",
+  "homepage": "https://lggruspe.github.io/loulou",
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/jsdom": "^16.2.10",
