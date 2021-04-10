@@ -26,7 +26,7 @@ class Ui {
 }
 
 interface Component {
-  ui: Ui
+  ui?: Ui
   render: () => Element
 }
 
@@ -34,9 +34,10 @@ function render (component: Component | Element, container: Element) {
   if (component instanceof Element) {
     return container.appendChild(component)
   } else {
-    const ui = component.ui
     const element = component.render()
-    ui.$ = elemTo$(element)
+    if (component.ui) {
+      component.ui.$ = elemTo$(element)
+    }
     return container.appendChild(element)
   }
 }

@@ -1,4 +1,4 @@
-import { T$, Ui, elemTo$, to$, toElem, hook, render } from '../src/index'
+import { Component, T$, Ui, elemTo$, to$, toElem, hook, render } from '../src/index'
 import * as assert from 'assert'
 
 afterEach(function () {
@@ -161,6 +161,39 @@ describe('render', () => {
     it('should insert element into DOM', () => {
       render(elem, document.body)
       assert.strictEqual(document.body.firstChild, elem)
+    })
+  })
+
+  describe('component with ui', () => {
+    class MyComponent implements Component {
+      ui: Ui
+      constructor () {
+        this.ui = new Ui(() => {})
+      }
+
+      render () {
+        return toElem('<hr>')
+      }
+    }
+
+    it('should insert element into DOM', () => {
+      const elem = render(new MyComponent(), document.body)
+      assert.strictEqual(elem.tagName, 'HR')
+      assert.strictEqual(elem, document.body.firstChild)
+    })
+  })
+
+  describe('component without ui', () => {
+    class MyComponent implements Component {
+      render () {
+        return toElem('<hr>')
+      }
+    }
+
+    it('should insert element into DOM', () => {
+      const elem = render(new MyComponent(), document.body)
+      assert.strictEqual(elem.tagName, 'HR')
+      assert.strictEqual(elem, document.body.firstChild)
     })
   })
 })
